@@ -17,7 +17,5 @@ public class Main {
         thomasAcc1.getWithdrawalsHistoryFromRecentToPast();
         thomasAcc1.getDepositsHistory();
 
-
-
     }
 }
