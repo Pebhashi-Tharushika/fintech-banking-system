@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class BankAccount {
@@ -5,6 +6,8 @@ public class BankAccount {
     private String accountNumber;
     private double balance;
     private String accountType;
+    private ArrayList<Double> deposits = new ArrayList<>();
+    private ArrayList<Double> withdrawals = new ArrayList<>();
 
     public BankAccount(AccountHolder accountHolder, String accountNumber, String accountType) {
         this.accountHolder = accountHolder;
@@ -15,6 +18,7 @@ public class BankAccount {
 
     public void depositCash(double amount) {
         this.balance += amount;
+        this.deposits.add(amount);
         System.out.println("Cash Deposited successfully. Your current balance is " + this.balance);
     }
 
@@ -33,6 +37,7 @@ public class BankAccount {
                 } else {
                     isRepeat = false;
                     this.balance -= amount;
+                    this.withdrawals.add(amount);
                     System.out.println("Cash Withdrawn successfully. Your current balance is " + this.balance);
                 }
             } catch (Exception e) {
@@ -69,5 +74,22 @@ public class BankAccount {
         }
     }
 
+    public void getDepositsHistory(){
+        for (int i = 0; i < this.deposits.size(); i++) {
+            System.out.println(this.deposits.get(i));
+        }
+    }
+
+    public void getWithdrawalsHistory(){
+        for (int i = 0; i < this.withdrawals.size(); i++) {
+            System.out.println(this.withdrawals.get(i));
+        }
+    }
+
+    public void getWithdrawalsHistoryFromRecentToPast(){
+        for (int i = withdrawals.size() - 1; i >= 0; i--) {
+            System.out.println(this.withdrawals.get(i));
+        }
+    }
 
 }
