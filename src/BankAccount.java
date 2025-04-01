@@ -29,5 +29,27 @@ public class BankAccount {
         return this.balance;
     }
 
+    public double getBalanceWithInterestAfterPeriods(int years) {
+        double interest = 0;
+        if(years < 0) {
+            System.out.println("Invalid Period");
+            return this.balance;
+        }
+        if (this.accountType.equals("sa")) {
+            return this.balance + this.balance * years * 0.02;
+        } else if(this.accountType.equals("FA")) {
+            if (years < 2) {
+                return this.balance + this.balance * years * 0.125;
+            } else if (years < 5) {
+                return this.balance + this.balance * years * 0.165;
+            } else {
+                return this.balance + this.balance * years * 0.2;
+            }
+        }else{
+            System.out.println("Invalid Account Type");
+            return this.balance;
+        }
+    }
+
 
 }
