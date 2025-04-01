@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class BankAccount {
     private AccountHolder accountHolder;
     private String accountNumber;
@@ -16,13 +18,29 @@ public class BankAccount {
         System.out.println("Cash Deposited successfully. Your current balance is " + this.balance);
     }
 
-    public void withdrawCash(double amount) {
-        if (this.balance - amount < 500) {
-            System.out.println("Insufficient Funds");
-            return;
+    public void withdrawCash() {
+        boolean isRepeat = true;
+
+        while (isRepeat) {
+            try {
+                Scanner input = new Scanner(System.in);
+                System.out.print("Enter the amount to withdraw: ");
+                double amount = input.nextDouble();
+                if (amount < 0) {
+                    System.out.println("You have not enter a valid amount. Try again.");
+                } else if (this.balance < amount) {
+                    System.out.println("Not Enough Balance. Your current balance is " + this.balance);
+                } else {
+                    isRepeat = false;
+                    this.balance -= amount;
+                    System.out.println("Cash Withdrawn successfully. Your current balance is " + this.balance);
+                }
+            } catch (Exception e) {
+                System.out.println("You have not enter a valid amount. Try again.");
+            }
+
         }
-        this.balance -= amount;
-        System.out.println("Cash Withdrawn successfully. Your current balance is " + this.balance);
+
     }
 
     public double getBalance() {
@@ -31,13 +49,13 @@ public class BankAccount {
 
     public double getBalanceWithInterestAfterPeriods(int years) {
         double interest = 0;
-        if(years < 0) {
+        if (years < 0) {
             System.out.println("Invalid Period");
             return this.balance;
         }
         if (this.accountType.equals("sa")) {
             return this.balance + this.balance * years * 0.02;
-        } else if(this.accountType.equals("FA")) {
+        } else if (this.accountType.equals("FA")) {
             if (years < 2) {
                 return this.balance + this.balance * years * 0.125;
             } else if (years < 5) {
@@ -45,7 +63,7 @@ public class BankAccount {
             } else {
                 return this.balance + this.balance * years * 0.2;
             }
-        }else{
+        } else {
             System.out.println("Invalid Account Type");
             return this.balance;
         }
